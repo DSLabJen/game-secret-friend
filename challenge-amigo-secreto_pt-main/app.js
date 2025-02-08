@@ -36,4 +36,18 @@ amigos.push(nome);
     resultadoLista.innerHTML = `<li class="result-item">Amigo Secreto Sorteado: <strong>${amigoSorteado}</strong></li>`;
   }
   
-
+  function limparLista() {
+    amigos = [];
+    atualizarListaAmigos();
+    document.getElementById("resultado").innerHTML = "";
+  }
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const buttonContainer = document.querySelector(".button-container");
+    const clearButton = document.createElement("button");
+    clearButton.textContent = "Limpar Lista";
+    clearButton.classList.add("button-clear");
+    clearButton.onclick = limparLista;
+    buttonContainer.appendChild(clearButton);
+  });
+  
