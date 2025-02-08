@@ -11,3 +11,9 @@ function adicionarAmigo() {
     return;
   }
 }
+
+amigos.push(nome);
+  atualizarListaAmigos();
+  inputNome.value = "";
+
+
