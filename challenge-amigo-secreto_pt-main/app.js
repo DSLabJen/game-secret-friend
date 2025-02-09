@@ -6,48 +6,50 @@ function adicionarAmigo() {
     const inputAmigo = document.getElementById('amigo');
     const nomeAmigo = inputAmigo.value.trim();
 
-  if (nome === "") {
-    alert("Por favor, insira um nome.");
-    return;
-  }
+    if (nomeAmigo === "") {
+        alert("Por favor, insira um nome válido.");
+        return;
+    }
+
+    amigos.push(nomeAmigo);
+    atualizarListaAmigos();
+
+    inputAmigo.value = "";
 }
 
-amigos.push(nome);
-  atualizarListaAmigos();
-  inputNome.value = "";
-  function atualizarListaAmigos() {
-    const lista = document.getElementById("listaAmigos");
-    lista.innerHTML = "";
-    amigos.forEach((amigo, index) => {
-      lista.innerHTML += `<li class="name-item">${index + 1}. ${amigo}</li>`;
-    });
-  }
+function atualizarListaAmigos() {
+    const listaAmigos = document.getElementById('listaAmigos');
+    listaAmigos.innerHTML = ""; // Limpa a lista antes de atualizar
 
-  function sortearAmigo() {
+    amigos.forEach((amigo, index) => {
+        const li = document.createElement('li');
+        li.textContent = amigo;
+        li.setAttribute('role', 'listitem');
+        listaAmigos.appendChild(li);
+    });
+}
+
+function sortearAmigo() {
     if (amigos.length === 0) {
-      alert("Nenhum amigo disponível para sortear.");
-      return;
+        alert("Por favor, adicione pelo menos um amigo antes de sortear.");
+        return;
     }
-  
-    const indiceAleatorio = Math.floor(Math.random() * amigos.length);
-    const amigoSorteado = amigos[indiceAleatorio];
-    
-    const resultadoLista = document.getElementById("resultado");
-    resultadoLista.innerHTML = `<li class="result-item">Amigo Secreto Sorteado: <strong>${amigoSorteado}</strong></li>`;
-  }
-  
-  function limparLista() {
+
+    const indiceSorteado = Math.floor(Math.random() * amigos.length);
+    const amigoSorteado = amigos[indiceSorteado];
+
+    const resultado = document.getElementById('resultado');
+    resultado.innerHTML = `<li>Amigo sorteado: <strong>${amigoSorteado}</strong></li>`;
+}
+
+function reiniciarSorteador() {
     amigos = [];
-    atualizarListaAmigos();
-    document.getElementById("resultado").innerHTML = "";
-  }
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const buttonContainer = document.querySelector(".button-container");
-    const clearButton = document.createElement("button");
-    clearButton.textContent = "Limpar Lista";
-    clearButton.classList.add("button-clear");
-    clearButton.onclick = limparLista;
-    buttonContainer.appendChild(clearButton);
-  });
-  
+
+    const listaAmigos = document.getElementById('listaAmigos');
+    listaAmigos.innerHTML = "";
+
+    const resultado = document.getElementById('resultado');
+    resultado.innerHTML = "";
+
+    document.getElementById('amigo').focus();
+}
